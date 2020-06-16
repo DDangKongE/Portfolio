@@ -1,22 +1,17 @@
 {
   "name": "portfolio",
-  "version": "1.0.0",
-  "description": "My Portfolio",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DDangKongE/Portfolio.git"
-  },
-  "author": "SeungMin Han",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DDangKongE/Portfolio/issues"
-  },
-  "homepage": "https://github.com/DDangKongE/Portfolio#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^5.9.19",
+    "morgan": "~1.9.1"
   }
 }
