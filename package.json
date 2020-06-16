@@ -1,0 +1,22 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "My Portfolio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DDangKongE/Portfolio.git"
+  },
+  "author": "SeungMin Han",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DDangKongE/Portfolio/issues"
+  },
+  "homepage": "https://github.com/DDangKongE/Portfolio#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
