@@ -6,7 +6,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 
 const mainRouter = require('./routes/main');
-const usersRouter = require('./routes/users');
+const manageRouter = require('./routes/manager');
 
 const app = express();
 
@@ -35,6 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', mainRouter);
+app.use('/manager/', manageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
