@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 
 const mainRouter = require('./routes/main');
 const manageRouter = require('./routes/manager');
@@ -33,6 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 app.use('/', mainRouter);
 app.use('/manager/', manageRouter);

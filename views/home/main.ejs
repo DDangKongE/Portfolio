@@ -17,35 +17,32 @@
       <div class="container">
           <div class="text-center">
               <h2 class="section-heading text-uppercase">ABOUT ME</h2>
-              <img class="mx-auto rounded-lg" style="width:auto; height: auto; max-width: 400px; max-height: 400px; margin-bottom: 1rem;" src="assets/img/crazy.jpg" alt="" />
-              <h3 class="section-subheading text-muted">
-                안녕하세요.<br>
-                신입 백엔드 개발자 한승민입니다.<br>
-                <br>
-                본 내용은 수정할 예정!
-               </h3>
+              <img class="mx-auto rounded-lg" style="width:auto; height: auto; max-width: 400px; max-height: 400px; margin-bottom: 1rem;" src="assets/img/about/introduce.jpg" alt="" />
+              <h3 class="section-subheading text-muted post-body">
+                <%= introduce %>
+              </h3>
           </div>
           <div class="row text-center">
               <div class="col-md-4">
-                  <span class="fa-stack fa-4x"><i class="fas fa-circle fa-stack-2x text-primary"></i><i class="fas fa-check fa-stack-1x fa-inverse"></i></span>
-                  <h4 class="my-3">Achievements</h4>
-                  <p class="text-muted">이젠아카데미에서 자바 웹 프로그래밍 과정을 이수하였으며,
-                    중고거래 사이트의 웹/앱 프로젝트를 진행하였습니다.<br>
-                    교육과정 수료 후 Javascript를 공부 중 입니다.
+                <span class="fa-stack fa-4x"><i class="fas fa-circle fa-stack-2x text-primary"></i><i class="fas fa-check fa-stack-1x fa-inverse"></i></span>
+                <h4 class="my-3">Achievements</h4>
+                <p class="text-muted post-body">
+                    <%= achievements %>
                 </p>
               </div>
               <div class="col-md-4">
-                  <span class="fa-stack fa-4x"><i class="fas fa-circle fa-stack-2x text-primary"></i><i class="fas fa-graduation-cap fa-stack-1x fa-inverse"></i></span>
-                  <h4 class="my-3">Education</h4>
-                  <p class="text-muted">선덕고등학교 - 졸업<br>
-                    수원과학대학 - 공연연기과 중퇴<br>
-                    이젠아카데미 – 자바 웹 프로그래밍과정 수료</p>
+                <span class="fa-stack fa-4x"><i class="fas fa-circle fa-stack-2x text-primary"></i><i class="fas fa-graduation-cap fa-stack-1x fa-inverse"></i></span>
+                <h4 class="my-3">Education</h4>
+                <p class="text-muted post-body">
+                 <%= education %>
+                </p>
               </div>
               <div class="col-md-4">
-                  <span class="fa-stack fa-4x"><i class="fas fa-circle fa-stack-2x text-primary"></i><i class="fas fa-laptop fa-stack-1x fa-inverse"></i></span>
-                  <h4 class="my-3">Experience </h4>
-                  <p class="text-muted">다양한 직종의 사회 경험을 통해 제가 나아갈 새로운 방향을 확실하게 잡고 공부하였으며,
-                    한 가지 일을 하더라도 스스로 만족하기 전까지는 그만두지 않는 끈기를 지니고 있습니다.</p>
+                <span class="fa-stack fa-4x"><i class="fas fa-circle fa-stack-2x text-primary"></i><i class="fas fa-laptop fa-stack-1x fa-inverse"></i></span>
+                <h4 class="my-3">Experience </h4>
+                <p class="text-muted post-body">
+                   <%= experience %>
+                </p>
               </div>
           </div>
       </div>
@@ -157,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:3rem;">
             <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">앞으로도 꾸준한 학습을 통해 다양한 스택을 쌓을 수 있도록 노력하겠습니다.</p></div>
         </div>
     </div>

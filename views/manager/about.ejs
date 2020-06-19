@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <div class="wrapper">
+            <%- include('../partials/side') %>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+                <h1>About Manager</h1>
+                <div style="text-align: center;">
+                    <img style="width:auto; height: auto; max-width: 400px; max-height: 400px; margin-bottom: 1rem;" src="/assets/img/about/introduce.jpg">
+                    <form action="./about/upload", method="post", enctype="multipart/form-data">
+                        <input type="file" name="uploadFile"/><br>
+                        <input class="btn btn-success" type="submit" name="upload" style="width:300; margin-top: 1rem;" value="변경"/>
+                    </form>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">내용</th>
+                            <th scope="col">변경</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- Introduce -->
+                          <form action="./about/edit/Introduce", method="post">
+                            <tr>
+                              <td rowspan="2">Introduce</td>
+                              <td class="post-body"><%= introduce %></td>
+                              <td rowspan="2">
+                                <input class="btn btn-success" type="submit"  value="수정" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                  <textarea cols="150" rows="8" name="edit"></textarea>
+                              </td>
+                            </tr>
+                          </form>
+                          
+                          <!-- Achievements -->
+                          <form action="./about/edit/Achievements", method="post">
+                            <tr>
+                              <td rowspan="2">Achievements</td>
+                              <td class="post-body"><%= achievements %></td>
+                              <td rowspan="2">
+                                <input class="btn btn-success" type="submit"  value="수정" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                  <textarea cols="150" rows="8" name="edit"></textarea>
+                              </td>
+                            </tr>
+                          </form>
+
+                          <!-- Education -->
+                          <form action="./about/edit/Education", method="post">
+                            <tr>
+                              <td rowspan="2">Education</td>
+                              <td class="post-body"><%= education %></td>
+                              <td rowspan="2">
+                                <input class="btn btn-success" type="submit"  value="수정" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <textarea cols="150" rows="8" name="edit"></textarea>
+                              </td>
+                            </tr>
+                          </form>
+
+                          <!-- Experience -->
+                          <form action="./about/edit/Experience", method="post">
+                            <tr>
+                              <td rowspan="2">Experience</td>
+                              <td class="post-body"><%= experience %></td>
+                              <td rowspan="2">
+                                <input class="btn btn-success" type="submit"  value="수정" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <textarea cols="150" rows="8" name="edit"></textarea>
+                              </td>
+                            </tr>
+                          </form>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
