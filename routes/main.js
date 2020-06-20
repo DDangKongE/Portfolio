@@ -4,18 +4,17 @@ var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  fs.readFile('./public/introduce/Introduce.txt', 'utf8', function (e, data){
-    var introduce = data;  
-    fs.readFile('./public/introduce/Achievements.txt', 'utf8', function (e, data){
-      var achievements = data;  
-        fs.readFile('./public/introduce/Education.txt', 'utf8', function (e, data){
-          var education = data;
-          fs.readFile('./public/introduce/Experience.txt', 'utf8', function (e, data){
-            var experience = data;  
-            res.render('./home/main', {introduce : introduce , achievements : achievements , education : education , experience : experience });
-        }); 
-      });
-    });
+  fs.readdir('./public/introduce/',"utf8", function(e, data){
+    var fileContant = new Array();
+    var i = 0;
+    data.forEach(function(filename){
+      
+      var fileData = fs.readFileSync('./public/introduce/'+filename, 'utf8')
+      fileContant[i] = fileData;
+      i = i + 1;
+      
+    })
+    res.render('./home/main', {achievements : fileContant[0] , education : fileContant[1] ,  experience : fileContant[2] ,  introduce : fileContant[3] });
   });
 });
 
