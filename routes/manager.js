@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
+const Skills = require('../models/skills');
+const mongoose = require('mongoose');
+const { json } = require('body-parser');
 
 /* GET manager page. */
 router.get('/', function(req, res, next) {
   res.render('./manager/main');
 });
 
-/* GET About manager page. */
+/* GET ABOUT 페이지 */
 router.get('/about', function(req, res, next) {
   
   fs.readdir('./public/introduce/',"utf8", function(e, data){
@@ -25,7 +28,7 @@ router.get('/about', function(req, res, next) {
   });
 });
 
-/* POST About intro image upload */
+/* POST 자기소개 이미지 수정 */
 router.post('/about/upload', function(req, res){
   let samplefile = req.files.uploadFile;
 
@@ -36,6 +39,7 @@ router.post('/about/upload', function(req, res){
   });
 });
 
+/* POST 자기소개 부분 수정 */
 router.post('/about/edit/:id', function(req, res){
   fs.writeFile('./public/introduce/'+req.params.id+'.txt', req.body.edit, {encoding: 'utf8'}, function(err){
     if(err) return console.log(err);
@@ -45,11 +49,41 @@ router.post('/about/edit/:id', function(req, res){
 
 /* GET About skills page. */
 router.get('/skills', function(req, res, next) {
+  Skills.find({})
+  .sort('num')
+  .exec(function(err, skilllist){
+    if(err) return res.json(err);
+
+    res.render('./manager/skills', {skilllist:skilllist});
+  });
+});
+
+/* POST 스킬 추가 */
+router.post('/skills/add/:id', function(req, res) {
+  console.log('도달함');
+  Skills.create({type:'backend', skillname:'JS', img:"dsadsa/asdada"}, function(err, post){
+    if(err) return console.log(err);
+    console.log('에러안남');
+  });
+  console.log('끝남');
   res.render('./manager/skills');
 });
 
+/* POST 순서 변경 */
+router.post('/skills/realign', function(req, res) {
+  Skills.updateOne({ _id : req.body.firstid}, {num : req.body.second}, function(err, first){
+    if(err) return json(err);
+  });
+  Skills.updateOne({ _id : req.body.secondid}, {num : req.body.first}, function(err, second){
+    if(err) return json(err);
+  });
+  setTimeout(() => {
+    res.redirect('./');
+  }, 1500);
+});
+
 /* GET About portfolio page. */
-router.get('/portfolio', function(req, res, next) {
+router.get('/portfolio', function(req, res) {
   res.render('./manager/portfolio');
 });
 

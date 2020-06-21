@@ -7,12 +7,189 @@
             <%- include('../partials/side') %>
 
             <!-- Page Content Holder -->
-            <div id="content">
-                <h1>Portfolio Manager</h1>
-                <h2>Version History</h2>
+            <div id="content" style="min-width: 1000px">
+                <h1>Skills Editor</h1>
+                <br>
+                <!-- 스킬 추가하는 영역 -->
+                <form action="./about/upload", method="post", enctype="multipart/form-data">
+                  <div>
+                    <h1>Skill Add</h1>
+                    <input style="width:300; margin-top: 1rem;" name="skillname" type="text" class="form-control" placeholder="기술명을 입력해주세요">
+                    <br>
+                    <select style="width:300;"  name="cars" class="custom-select-md">
+                      <option selected>분류를 선택해주세요</option>
+                      <option value="backend">backend</option>
+                      <option value="frontend">frontend</option>
+                      <option value="database">database</option>
+                      <option value="etc">etc</option>
+                    </select>
+                    <br>
+                    <div style="width:300; margin-top: 1rem;" class="custom-file">
+                      <input name="uploadFile" type="file" class="custom-file-input" id="customFile">
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <br>
+                    <input class="btn btn-success" type="submit" name="upload" style="width:300; margin-top: 1rem;" value="추가"/>
+                  </div>
+                </form>
+
+                <!-- BACK-END -->
+                <h2>BACK-END</h2>
+                <table class="table" style="text-align: center;">
+                  <thead>
+                    <tr style="text-align: center;">
+                      <th scope="col">아이콘</th>
+                      <th scope="col">기술</th>
+                      <th scope="col">삭제</th>
+                      <th scope="col">순서변경</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% var i = 0 ; %>
+                    <% skilllist.forEach(function(skill){ %>
+                        <tr>
+                          <td rowspan="2" style="vertical-align: middle;">
+                            <img style="width:100px; height: 100px;" src="/skills/<%=skill.img%>.png">
+                          </td>
+                          <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
+                          <td rowspan="2" style="vertical-align: middle;">
+                          <form action="./skills/delete/<%=skill.num%>", method="post"></form>
+                            <input class="btn btn-success" type="submit"  value="삭제" />
+                          </form>
+                          </td>
+                          <td>
+                            <% if (i != 0) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=skilllist[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=skilllist[i]._id%>">
+                                <input type="hidden" name="second" value="<%=skilllist[i-1].num%>">
+                                <input type="hidden" name="secondid" value="<%=skilllist[i-1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↑">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: hidden;">
+                            <% if (i != skilllist.length-1) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=skilllist[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=skilllist[i]._id%>">
+                                <input type="hidden" name="second" value="<%=skilllist[i+1].num%>">
+                                <input type="hidden" name="secondid" value="<%=skilllist[i+1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↓">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                      <% i = i + 1 ; %>
+                    <% }); %>
+                  </tbody>
+                </table>
+
+
+                <!-- FRONT-END -->                  
+                <h2>FRONT-END</h2>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">내용</th>
+                      <th scope="col">변경</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Introduce -->
+                    <form action="/", method="post">
+                      <tr>
+                        <td rowspan="2">Experience</td>
+                        <td class="post-body">546546546</td>
+                        <td rowspan="2">
+                          <input class="btn btn-success" type="submit"  value="수정" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          345345
+                        </td>
+                      </tr>
+                    </form>
+                    
+                    <!-- Achievements -->
+                    <form action="/", method="post">
+                      <tr>
+                        <td rowspan="2">Experience</td>
+                        <td class="post-body">546546546</td>
+                        <td rowspan="2">
+                          <input class="btn btn-success" type="submit"  value="수정" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          345345
+                        </td>
+                      </tr>
+                    </form>
+
+                    <!-- Education -->
+                    <form action="/", method="post">
+                      <tr>
+                        <td rowspan="2">Experience</td>
+                        <td class="post-body">546546546</td>
+                        <td rowspan="2">
+                          <input class="btn btn-success" type="submit"  value="수정" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          345345
+                        </td>
+                      </tr>
+                    </form>
+
+                    <!-- Experience -->
+                    <form action="/", method="post">
+                      <tr>
+                        <td rowspan="2">Experience</td>
+                        <td class="post-body">546546546</td>
+                        <td rowspan="2">
+                          <input class="btn btn-success" type="submit"  value="수정" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          345345
+                        </td>
+                      </tr>
+                    </form>
+                  </tbody>
+                </table>
+
+
+                <!-- DATABASE -->
+                <h2>DATABASE</h2>
+                <p>v1.0.0</p>
+                <p>최초 페이지 완성</p>
+
+
+                <!-- ETC -->
+                <h2>ETC</h2>
                 <p>v1.0.0</p>
                 <p>최초 페이지 완성</p>
             </div>
         </div>
+
+    <script type="text/javascript">
+        function skill_list_up(first, second){
+          console.log(first + " \n ------------------------- \n" + second);
+
+          location.href="/manager/skills/"+first+"/realign/"+second;
+        }
+        function skill_list_down(first, second){
+          console.log(first + " \n ------------------------- \n" + second);
+
+        }
+
+    </script>
     </body>
 </html>
