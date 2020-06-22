@@ -4,7 +4,6 @@ const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const Skills = require('../models/skills');
 const mongoose = require('mongoose');
-const { json } = require('body-parser');
 
 /* GET manager page. */
 router.get('/', function(req, res, next) {
@@ -49,13 +48,52 @@ router.post('/about/edit/:id', function(req, res){
 
 /* GET Skills page. */
 router.get('/skills', function(req, res, next) {
-  Skills.find({})
-  .sort('num')
-  .exec(function(err, skilllist){
-    if(err) return res.json(err);
+  var back = new Array();
+  var front = new Array();
+  var db = new Array();
+  var etc = new Array();
+  
+  function backfind(){
+    Skills.find({type:'backend'})
+    .sort('num')
+    .exec(function(err, backlist){
+      if(err) return res.json(err);
+      back = backlist;
+      frontfind();
+      });
+    };
 
-    res.render('./manager/skills', {skilllist:skilllist});
-  });
+  function frontfind(){
+    Skills.find({type:'frontend'})
+    .sort('num')
+    .exec(function(err, frontlist){
+      if(err) return res.json(err);
+      front = frontlist;
+      dbfind();
+      });
+    };
+
+  function dbfind(){
+    Skills.find({type:'database'})
+    .sort('num')
+    .exec(function(err, dblist){
+      if(err) return res.json(err);
+      db = dblist;
+      etcfind();
+      });
+    };
+
+  function etcfind(){
+    Skills.find({type:'etc'})
+    .sort('num')
+    .exec(function(err, etclist){
+      if(err) return res.json(err);
+      etc = etclist;
+      res.render('./manager/skills', {backend:back, frontend:front, database:db, etc:etc});
+      });
+    };
+
+    backfind();
 });
 
 /* POST 스킬 추가 */
@@ -77,7 +115,7 @@ router.post('/skills/add', function(req, res) {
   console.log('끝남');
   setTimeout(() => {
     res.redirect('/manager/skills');
-  }, 1500);
+  }, 500);
 });
 
 /* POST 순서 변경 */

@@ -46,7 +46,7 @@
                   </thead>
                   <tbody>
                     <% var i = 0 ; %>
-                    <% skilllist.forEach(function(skill){ %>
+                    <% backend.forEach(function(skill){ %>
                         <tr>
                           <td rowspan="2" style="vertical-align: middle;">
                             <img style="width:100px; height: 100px;" src="/skills/<%=skill.img%>.png">
@@ -60,10 +60,10 @@
                           <td>
                             <% if (i != 0) { %>
                               <form action="/manager/skills/realign" method="post">
-                                <input type="hidden" name="first" value="<%=skilllist[i].num%>">
-                                <input type="hidden" name="firstid" value="<%=skilllist[i]._id%>">
-                                <input type="hidden" name="second" value="<%=skilllist[i-1].num%>">
-                                <input type="hidden" name="secondid" value="<%=skilllist[i-1]._id%>">
+                                <input type="hidden" name="first" value="<%=backend[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=backend[i]._id%>">
+                                <input type="hidden" name="second" value="<%=backend[i-1].num%>">
+                                <input type="hidden" name="secondid" value="<%=backend[i-1]._id%>">
                                 <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↑">
                               </form>
                             <% } %>
@@ -71,12 +71,12 @@
                         </tr>
                         <tr>
                           <td style="border-top: hidden;">
-                            <% if (i != skilllist.length-1) { %>
+                            <% if (i != backend.length-1) { %>
                               <form action="/manager/skills/realign" method="post">
-                                <input type="hidden" name="first" value="<%=skilllist[i].num%>">
-                                <input type="hidden" name="firstid" value="<%=skilllist[i]._id%>">
-                                <input type="hidden" name="second" value="<%=skilllist[i+1].num%>">
-                                <input type="hidden" name="secondid" value="<%=skilllist[i+1]._id%>">
+                                <input type="hidden" name="first" value="<%=backend[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=backend[i]._id%>">
+                                <input type="hidden" name="second" value="<%=backend[i+1].num%>">
+                                <input type="hidden" name="secondid" value="<%=backend[i+1]._id%>">
                                 <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↓">
                               </form>
                             <% } %>
@@ -90,92 +90,167 @@
 
                 <!-- FRONT-END -->                  
                 <h2>FRONT-END</h2>
-                <table class="table">
+                <table class="table" style="text-align: center;">
                   <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">내용</th>
-                      <th scope="col">변경</th>
+                    <tr style="text-align: center;">
+                      <th scope="col">아이콘</th>
+                      <th scope="col">기술</th>
+                      <th scope="col">삭제</th>
+                      <th scope="col">순서변경</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- Introduce -->
-                    <form action="/", method="post">
-                      <tr>
-                        <td rowspan="2">Experience</td>
-                        <td class="post-body">546546546</td>
-                        <td rowspan="2">
-                          <input class="btn btn-success" type="submit"  value="수정" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          345345
-                        </td>
-                      </tr>
-                    </form>
-                    
-                    <!-- Achievements -->
-                    <form action="/", method="post">
-                      <tr>
-                        <td rowspan="2">Experience</td>
-                        <td class="post-body">546546546</td>
-                        <td rowspan="2">
-                          <input class="btn btn-success" type="submit"  value="수정" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          345345
-                        </td>
-                      </tr>
-                    </form>
-
-                    <!-- Education -->
-                    <form action="/", method="post">
-                      <tr>
-                        <td rowspan="2">Experience</td>
-                        <td class="post-body">546546546</td>
-                        <td rowspan="2">
-                          <input class="btn btn-success" type="submit"  value="수정" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          345345
-                        </td>
-                      </tr>
-                    </form>
-
-                    <!-- Experience -->
-                    <form action="/", method="post">
-                      <tr>
-                        <td rowspan="2">Experience</td>
-                        <td class="post-body">546546546</td>
-                        <td rowspan="2">
-                          <input class="btn btn-success" type="submit"  value="수정" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          345345
-                        </td>
-                      </tr>
-                    </form>
+                    <% var i = 0 ; %>
+                    <% frontend.forEach(function(skill){ %>
+                        <tr>
+                          <td rowspan="2" style="vertical-align: middle;">
+                            <img style="width:100px; height: 100px;" src="/skills/<%=skill.img%>.png">
+                          </td>
+                          <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
+                          <td rowspan="2" style="vertical-align: middle;">
+                          <form action="./skills/delete/<%=skill.num%>", method="post"></form>
+                            <input class="btn btn-success" type="submit"  value="삭제" />
+                          </form>
+                          </td>
+                          <td>
+                            <% if (i != 0) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=frontend[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=frontend[i]._id%>">
+                                <input type="hidden" name="second" value="<%=frontend[i-1].num%>">
+                                <input type="hidden" name="secondid" value="<%=frontend[i-1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↑">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: hidden;">
+                            <% if (i != frontend.length-1) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=frontend[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=frontend[i]._id%>">
+                                <input type="hidden" name="second" value="<%=frontend[i+1].num%>">
+                                <input type="hidden" name="secondid" value="<%=frontend[i+1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↓">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                      <% i = i + 1 ; %>
+                    <% }); %>
                   </tbody>
                 </table>
 
 
                 <!-- DATABASE -->
                 <h2>DATABASE</h2>
-                <p>v1.0.0</p>
-                <p>최초 페이지 완성</p>
+                <table class="table" style="text-align: center;">
+                  <thead>
+                    <tr style="text-align: center;">
+                      <th scope="col">아이콘</th>
+                      <th scope="col">기술</th>
+                      <th scope="col">삭제</th>
+                      <th scope="col">순서변경</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% var i = 0 ; %>
+                    <% database.forEach(function(skill){ %>
+                        <tr>
+                          <td rowspan="2" style="vertical-align: middle;">
+                            <img style="width:100px; height: 100px;" src="/skills/<%=skill.img%>.png">
+                          </td>
+                          <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
+                          <td rowspan="2" style="vertical-align: middle;">
+                          <form action="./skills/delete/<%=skill.num%>", method="post"></form>
+                            <input class="btn btn-success" type="submit"  value="삭제" />
+                          </form>
+                          </td>
+                          <td>
+                            <% if (i != 0) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=database[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=database[i]._id%>">
+                                <input type="hidden" name="second" value="<%=database[i-1].num%>">
+                                <input type="hidden" name="secondid" value="<%=database[i-1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↑">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: hidden;">
+                            <% if (i != database.length-1) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=database[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=database[i]._id%>">
+                                <input type="hidden" name="second" value="<%=database[i+1].num%>">
+                                <input type="hidden" name="secondid" value="<%=database[i+1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↓">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                      <% i = i + 1 ; %>
+                    <% }); %>
+                  </tbody>
+                </table>
 
 
                 <!-- ETC -->
                 <h2>ETC</h2>
-                <p>v1.0.0</p>
-                <p>최초 페이지 완성</p>
+                <table class="table" style="text-align: center;">
+                  <thead>
+                    <tr style="text-align: center;">
+                      <th scope="col">아이콘</th>
+                      <th scope="col">기술</th>
+                      <th scope="col">삭제</th>
+                      <th scope="col">순서변경</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% var i = 0 ; %>
+                    <% etc.forEach(function(skill){ %>
+                        <tr>
+                          <td rowspan="2" style="vertical-align: middle;">
+                            <img style="width:100px; height: 100px;" src="/skills/<%=skill.img%>.png">
+                          </td>
+                          <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
+                          <td rowspan="2" style="vertical-align: middle;">
+                          <form action="./skills/delete/<%=skill.num%>", method="post"></form>
+                            <input class="btn btn-success" type="submit"  value="삭제" />
+                          </form>
+                          </td>
+                          <td>
+                            <% if (i != 0) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=etc[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=etc[i]._id%>">
+                                <input type="hidden" name="second" value="<%=etc[i-1].num%>">
+                                <input type="hidden" name="secondid" value="<%=etc[i-1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↑">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: hidden;">
+                            <% if (i != etc.length-1) { %>
+                              <form action="/manager/skills/realign" method="post">
+                                <input type="hidden" name="first" value="<%=etc[i].num%>">
+                                <input type="hidden" name="firstid" value="<%=etc[i]._id%>">
+                                <input type="hidden" name="second" value="<%=etc[i+1].num%>">
+                                <input type="hidden" name="secondid" value="<%=etc[i+1]._id%>">
+                                <input class="btn btn-info btn-sm" style="margin-bottom: -1rem;" type="submit" value="↓">
+                              </form>
+                            <% } %>
+                          </td>
+                        </tr>
+                      <% i = i + 1 ; %>
+                    <% }); %>
+                  </tbody>
+                </table>
             </div>
         </div>
 
