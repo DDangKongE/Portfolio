@@ -53,47 +53,64 @@ router.get('/skills', function(req, res, next) {
   var db = new Array();
   var etc = new Array();
   
-  function backfind(){
-    Skills.find({type:'backend'})
-    .sort('num')
-    .exec(function(err, backlist){
-      if(err) return res.json(err);
-      back = backlist;
-      frontfind();
-      });
-    };
+  var test = new Array();
+  var test2 = new Array();
+  var test3 = new Array();
 
-  function frontfind(){
-    Skills.find({type:'frontend'})
-    .sort('num')
-    .exec(function(err, frontlist){
-      if(err) return res.json(err);
-      front = frontlist;
-      dbfind();
-      });
-    };
+  function backfind() {
+    return new Promise(function(resolve, reject) {
+        Skills.find({type:'backend'})
+        .sort('num')
+        .exec(function(err, backlist){
+        if(err) return res.json(err);
+        resolve(backlist);
+        });
+    });
+  }
 
-  function dbfind(){
-    Skills.find({type:'database'})
-    .sort('num')
-    .exec(function(err, dblist){
-      if(err) return res.json(err);
-      db = dblist;
-      etcfind();
-      });
-    };
+  function frontfind() {
+    return new Promise(function(resolve, reject) {
+        Skills.find({type:'frontend'})
+        .sort('num')
+        .exec(function(err, frontlist){
+        if(err) return res.json(err);
+        resolve(frontlist);
+        });
+    });
+  }
 
-  function etcfind(){
-    Skills.find({type:'etc'})
-    .sort('num')
-    .exec(function(err, etclist){
-      if(err) return res.json(err);
-      etc = etclist;
-      res.render('./manager/skills', {backend:back, frontend:front, database:db, etc:etc});
-      });
-    };
+  function dbfind() {
+    return new Promise(function(resolve, reject) {
+        Skills.find({type:'database'})
+        .sort('num')
+        .exec(function(err, dblist){
+        if(err) return res.json(err);
+        resolve(dblist);
+        });
+    });
+  }
 
-    backfind();
+  function etcfind() {
+    return new Promise(function(resolve, reject) {
+        Skills.find({type:'etc'})
+        .sort('num')
+        .exec(function(err, etclist){
+        if(err) return res.json(err);
+        resolve(etclist);
+        });
+    });
+  }
+
+  async function loadList(){
+    var back = await backfind();
+    var front = await frontfind();
+    var db = await dbfind();
+    var etc = await etcfind();
+
+    res.render('./manager/skills', {backend:back, frontend:front, database:db, etc:etc});
+  }
+
+  loadList();
 });
 
 /* POST 스킬 추가 */
@@ -128,7 +145,7 @@ router.post('/skills/realign', function(req, res) {
   });
   setTimeout(() => {
     res.redirect('./');
-  }, 1500);
+  }, 2000);
 });
 
 /* POST 스킬 삭제 */

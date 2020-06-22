@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+const Skills = require('../models/skills');
+const mongoose = require('mongoose');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,7 +16,10 @@ router.get('/', function(req, res, next) {
       i = i + 1;
       
     })
-    res.render('./home/main', {achievements : fileContant[0] , education : fileContant[1] ,  experience : fileContant[2] ,  introduce : fileContant[3] });
+    res.render('./home/main', {
+      achievements : fileContant[0] , education : fileContant[1] ,  experience : fileContant[2] ,  introduce : fileContant[3] ,
+    
+    });
   });
 });
 
