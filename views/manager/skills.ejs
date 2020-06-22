@@ -11,12 +11,12 @@
                 <h1>Skills Editor</h1>
                 <br>
                 <!-- 스킬 추가하는 영역 -->
-                <form action="./about/upload", method="post", enctype="multipart/form-data">
+                <form action="/manager/skills/add", method="post", enctype="multipart/form-data">
                   <div>
                     <h1>Skill Add</h1>
                     <input style="width:300; margin-top: 1rem;" name="skillname" type="text" class="form-control" placeholder="기술명을 입력해주세요">
                     <br>
-                    <select style="width:300;"  name="cars" class="custom-select-md">
+                    <select style="width:300;"  name="type" class="custom-select-md">
                       <option selected>분류를 선택해주세요</option>
                       <option value="backend">backend</option>
                       <option value="frontend">frontend</option>
@@ -180,16 +180,10 @@
         </div>
 
     <script type="text/javascript">
-        function skill_list_up(first, second){
-          console.log(first + " \n ------------------------- \n" + second);
-
-          location.href="/manager/skills/"+first+"/realign/"+second;
-        }
-        function skill_list_down(first, second){
-          console.log(first + " \n ------------------------- \n" + second);
-
-        }
-
+      $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      });
     </script>
     </body>
 </html>

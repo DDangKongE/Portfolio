@@ -47,7 +47,7 @@ router.post('/about/edit/:id', function(req, res){
   res.redirect('/manager/about');
 });
 
-/* GET About skills page. */
+/* GET Skills page. */
 router.get('/skills', function(req, res, next) {
   Skills.find({})
   .sort('num')
@@ -59,14 +59,25 @@ router.get('/skills', function(req, res, next) {
 });
 
 /* POST 스킬 추가 */
-router.post('/skills/add/:id', function(req, res) {
+router.post('/skills/add', function(req, res) {
   console.log('도달함');
-  Skills.create({type:'backend', skillname:'JS', img:"dsadsa/asdada"}, function(err, post){
+  console.log(req.body.type);
+
+  let samplefile = req.files.uploadFile;
+  var skillname = req.body.skillname.toUpperCase();
+  var imgname = req.body.skillname.toLowerCase();
+  Skills.create({ skillname:skillname, type:req.body.type, img:imgname}, function(err, post){
     if(err) return console.log(err);
-    console.log('에러안남');
+    console.log('DB추가 완료');
+  });
+  samplefile.mv('./public/skills/'+imgname+'.png', function(err){
+    if(err) return res.status(500).send(err);
+    console.log('이미지 추가 완료');
   });
   console.log('끝남');
-  res.render('./manager/skills');
+  setTimeout(() => {
+    res.redirect('/manager/skills');
+  }, 1500);
 });
 
 /* POST 순서 변경 */
