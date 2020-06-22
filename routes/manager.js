@@ -118,7 +118,7 @@ router.post('/skills/add', function(req, res) {
   }, 500);
 });
 
-/* POST 순서 변경 */
+/* POST 스킬 순서 변경 */
 router.post('/skills/realign', function(req, res) {
   Skills.updateOne({ _id : req.body.firstid}, {num : req.body.second}, function(err, first){
     if(err) return json(err);
@@ -130,6 +130,14 @@ router.post('/skills/realign', function(req, res) {
     res.redirect('./');
   }, 1500);
 });
+
+/* POST 스킬 삭제 */
+router.post('/skills/delete/:num', function(req, res){
+  Skills.deleteOne({num: req.params.num}, function(err){
+    if(err) return res.json(err);
+    res.redirect('/manager/skills');
+  })
+})
 
 /* GET About portfolio page. */
 router.get('/portfolio', function(req, res) {
