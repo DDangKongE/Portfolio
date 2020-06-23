@@ -17,7 +17,7 @@
       <div class="container">
           <div class="text-center">
               <h2 class="section-heading text-uppercase">ABOUT ME</h2>
-              <img class="mx-auto rounded-lg" style="width:auto; height: auto; max-width: 400px; max-height: 400px; margin-bottom: 1rem;" src="assets/img/about/introduce.jpg" alt="" />
+              <img class="mx-auto rounded-lg" style="width:auto; height: auto; max-width: 400px; max-height: 400px; margin-bottom: 1rem;" src="managefile/introduce.png" alt="" />
               <h3 class="section-subheading text-muted post-body">
                 <%= introduce %>
               </h3>
@@ -50,109 +50,75 @@
   <!-- Skill-->
   <section class="page-section bg-light" id="skill">
     <div class="container">
+
+        <!--BACK-END-->
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Skill</h2>
             <h3 class="section-subheading text-muted" style="font-size: 1.5rem">BACK-END</h3>
         </div>
         <div class="row">
+            <% backend.forEach(function(skill){ %>
             <div class="col-4">
                 <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/java.jpg" alt="" />
-                    <h4>JAVA</h4>
+                    <img class="mx-auto rounded-lg" src="/managefile/skills/<%=skill.img%>.png" alt="" />
+                    <h4><%=skill.skillname%></h4>
                     <!-- <p class="text-muted">상세 예정</p> -->
                 </div>
             </div>
-            <div class="col-4">
-                <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/spring.jpg" alt="" />
-                    <h4>SPRING FRAMEWORK</h4>
-                    <!-- <p class="text-muted">상세 예정</p> -->
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/nodejs.png" alt="" />
-                    <h4>NODE.JS</h4>
-                    <!-- <p class="text-muted">상세 예정</p> -->
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/jsp.png" alt="" />
-                    <h4>JSP</h4>
-                    <!-- <p class="text-muted">상세 예정</p> -->
-                </div>
-            </div>
+            <% }); %>
         </div>
+
+        <!--FRONT-END-->
         <div class="container">
             <div class="text-center">
                 <h3 class="section-subheading text-muted" style="font-size: 1.5rem">FRONT-END</h3>
             </div>
         </div>
         <div class="row">
+            <% frontend.forEach(function(skill){ %>
             <div class="col-4">
                 <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/js.png" alt="" />
-                    <h4>JAVASCRIPT</h4>
+                    <img class="mx-auto rounded-lg" src="/managefile/skills/<%=skill.img%>.png" alt="" />
+                    <h4><%=skill.skillname%></h4>
                     <!-- <p class="text-muted">상세 예정</p> -->
                 </div>
             </div>
-            <div class="col-4">
-                <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/html.png" alt="" />
-                    <h4>HTML</h4>
-                    <!-- <p class="text-muted">상세 예정</p> -->
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/css.png" alt="" />
-                    <h4>CSS</h4>
-                    <!-- <p class="text-muted">상세 예정</p> -->
-                </div>
-            </div>
+            <% }); %>
         </div>
+
+        <!--DATABASE-->
         <div class="container">
             <div class="text-center">
                 <h3 class="section-subheading text-muted" style="font-size: 1.5rem">DATABASE</h3>
             </div>
         </div>
         <div class="row">
+            <% database.forEach(function(skill){ %>
             <div class="col-4">
                 <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/oracle.png" alt="" />
-                    <h4>ORACLE</h4>
+                    <img class="mx-auto rounded-lg" src="/managefile/skills/<%=skill.img%>.png" alt="" />
+                    <h4><%=skill.skillname%></h4>
                     <!-- <p class="text-muted">상세 예정</p> -->
                 </div>
             </div>
-            <div class="col-4">
-                <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/mongodb.png" alt="" />
-                    <h4>MONGODB</h4>
-                    <!-- <p class="text-muted">상세 예정</p> -->
-                </div>
-            </div>
+            <% }); %>
         </div>
+        <!--ETC-->
         <div class="container">
             <div class="text-center">
                 <h3 class="section-subheading text-muted" style="font-size: 1.5rem">ETC</h3>
             </div>
         </div>
         <div class="row">
+            <% etc.forEach(function(skill){ %>
             <div class="col-4">
                 <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/git.png" alt="" />
-                    <h4>GIT</h4>
+                    <img class="mx-auto rounded-lg" src="/managefile/skills/<%=skill.img%>.png" alt="" />
+                    <h4><%=skill.skillname%></h4>
                     <!-- <p class="text-muted">상세 예정</p> -->
                 </div>
             </div>
-            <div class="col-4">
-                <div class="skills">
-                    <img class="mx-auto rounded-lg" src="assets/img/skills/ubuntu.jpg" alt="" />
-                    <h4>UBUNTU</h4>
-                    <!-- <p class="text-muted">상세 예정</p> -->
-                </div>
-            </div>
+            <% }); %>
         </div>
         <div class="row" style="margin-top:3rem;">
             <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">앞으로도 꾸준한 학습을 통해 다양한 스택을 쌓을 수 있도록 노력하겠습니다.</p></div>

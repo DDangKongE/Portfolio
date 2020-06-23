@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <div class="wrapper">
+            <%- include('../partials/side') %>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+                <h1>Portfolio Editor</h1>
+                <form action="/manager/portfolio/edit" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <p class="font-weight-bolder">프로젝트 이름</p>
+                        <input name="projectname" type="text" class="form-control">
+                    </div>
+                    <div>
+                        <p class="font-weight-bolder">프로젝트 기간</p>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <input name="projectstart" type="text" class="form-control" placeholder="Project Start">
+                        </div>
+                        <div class="col">
+                            <input name="projectend" type="text" class="form-control" placeholder="Project End">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p class="font-weight-bolder">주제 및 목표</p>
+                        <textarea name="subject" type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <p class="font-weight-bolder">기술 및 라이브러리</p>
+                        <textarea name="uselibrary" type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <p class="font-weight-bolder">제작과정 및 상세내용</p>
+                        <textarea name="projectdetail" type="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div>
+                        <p class="font-weight-bolder">이미지 업로드(1장)</p>
+                    </div>
+                    <div style="width:500px; margin-bottom: 1rem;" class="custom-file">
+                        <input name="uploadFile" type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <div>
+                        <input type="hidden" name="index" value="<%=index%>">
+                        <button type="submit" class="btn btn-success">추가</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(".custom-file-input").on("change", function() {
+              var fileName = $(this).val().split("\\").pop();
+              $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+          </script>
+    </body>
+</html>
