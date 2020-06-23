@@ -4,6 +4,8 @@ var fs = require('fs');
 const Skills = require('../models/skills');
 const Portfolio = require('../models/portfolio');
 const mongoose = require('mongoose');
+const { json } = require('body-parser');
+const { findOne } = require('../models/skills');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -24,6 +26,7 @@ router.get('/', function(req, res, next) {
   var front = new Array();
   var db = new Array();
   var etc = new Array();
+  var portfolio = new Array();
 
   function backfind() {
     return new Promise(function(resolve, reject) {
@@ -69,23 +72,43 @@ router.get('/', function(req, res, next) {
     });
   }
 
+  function portfoliofind() {
+    return new Promise(function(resolve, reject) {
+        Portfolio.find()
+        .skip(1)
+        .sort('index')
+        .exec(function(err, portfoliolist){
+        if(err) return res.json(err);
+        resolve(portfoliolist);
+        });
+    });
+  }
+
   async function loadList(){
     var back = await backfind();
     var front = await frontfind();
     var db = await dbfind();
     var etc = await etcfind();
+    var porfol = await portfoliofind();
 
 
     res.render('./home/main', {
         achievements : fileContant[0] , education : fileContant[1] ,  experience : fileContant[2] ,  introduce : fileContant[3] ,
-        backend:back, frontend:front, database:db, etc:etc
+        backend:back, frontend:front, database:db, etc:etc,
+        portfolio:porfol
       });
   }
   
   loadList();
   
-  
   });
 });
+
+router.get('/portpolioDetail',function(req, res){
+  Portfolio.findOne({index:req.query.index})
+  .exec(function(err, data){
+    res.send({result:data});
+  });
+})
 
 module.exports = router;

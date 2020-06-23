@@ -117,9 +117,6 @@ router.get('/skills', function(req, res, next) {
 
 /* POST 스킬 추가 */
 router.post('/skills/add', function(req, res) {
-  console.log('도달함');
-  console.log(req.body.type);
-
   let samplefile = req.files.uploadFile;
   var skillname = req.body.skillname.toUpperCase();
   var imgname = req.body.skillname.toLowerCase();
@@ -131,7 +128,6 @@ router.post('/skills/add', function(req, res) {
     if(err) return res.status(500).send(err);
     console.log('이미지 추가 완료');
   });
-  console.log('끝남');
   setTimeout(() => {
     res.redirect('/manager/skills');
   }, 500);
@@ -162,9 +158,9 @@ router.post('/skills/delete/:num', function(req, res){
 /* GET About portfolio page. */
 router.get('/portfolio', function(req, res) {
   Portfolio.find()
+  .skip(1)
   .sort('index')
   .exec(function(err,data){
-    console.log(data);
     res.render('./manager/portfolio', {list:data});
   });
 });
@@ -172,19 +168,25 @@ router.get('/portfolio', function(req, res) {
 /* 포트폴리오 */
 /* GET 포트폴리오 추가 */
 router.get('/portfolio/edit', function(req, res) {
-  res.render('./manager/portfolio_editor', {index:'0'});
+  Portfolio.findOne({index:'0'})
+  .exec(function(err, data){
+    res.render('./manager/portfolio_editor', {index:'0', data:data});
+  })
 });
 
 /* GET 포트폴리오 수정 */
 router.get('/portfolio/edit/:id', function(req, res) {
-  res.render('./manager/portfolio_editor', {index:req.params.id});
+  Portfolio.findOne({index:req.params.id})
+  .exec(function(err, data){
+    res.render('./manager/portfolio_editor', {index:req.params.id, data:data});
+  })
 });
 
 /* POST 포트폴리오 추가 */
 router.post('/portfolio/edit', function(req, res) {
   let samplefile = req.files.uploadFile;
   var projectname = req.body.projectname.toLowerCase();
-  var imgname = req.body.projectname.toLowerCase();
+  var imgname = req.body.projectname.replace(/ /gi, "").toLowerCase();
 
   function addFile(){
     samplefile.mv('./public/managefile/portfolio/'+imgname+'.png', function(err){
@@ -196,22 +198,37 @@ router.post('/portfolio/edit', function(req, res) {
 
   if(req.body.index == 0){
     Portfolio.create({ 
-      projectname:projectname, projectstart:req.body.projectstart, projectend:req.body.projectend, subject:req.body.subject, uselibrary:req.body.uselibrary, projectdetail:req.body.projectdetail, img:imgname
+      projectname:projectname, projectsubtitle:req.body.projectsubtitle, projectstart:req.body.projectstart, projectend:req.body.projectend, subject:req.body.subject, uselibrary:req.body.uselibrary, projectdetail:req.body.projectdetail, img:imgname
     }, function(err, post){
       if(err) return console.log(err);
       console.log('DB추가 완료');
       addFile();
     });
   } else {
-    Portfolio.updateOne({ 
-      projectname:projectname, projectstart:req.body.projectstart, projectend:req.body.projectend, subject:req.body.subject, uselibrary:req.body.uselibrary, projectdetail:req.body.projectdetail, img:imgname
+    Portfolio.updateOne({index:req.body.index},{ 
+      projectname:projectname, projectsubtitle:req.body.projectsubtitle, projectstart:req.body.projectstart, projectend:req.body.projectend, subject:req.body.subject, uselibrary:req.body.uselibrary, projectdetail:req.body.projectdetail, img:imgname
     }, function(err, post){
       if(err) return console.log(err);
       console.log('DB수정 완료');
-      addFile();
+      fs.unlink('public/managefile/portfolio/'+req.body.olderimg+'.png', function(err){
+        if(err) return console.log(err);
+        addFile();
+      })
     });
   };
+});
 
+/* POST 스킬 순서 변경 */
+router.post('/portfolio/realign', function(req, res) {
+  Portfolio.updateOne({ _id : req.body.firstid}, {index : req.body.second}, function(err, first){
+    if(err) return json(err);
+  });
+  Portfolio.updateOne({ _id : req.body.secondid}, {index : req.body.first}, function(err, second){
+    if(err) return json(err);
+  });
+  setTimeout(() => {
+    res.redirect('./');
+  }, 2000);
 });
 
 module.exports = router;

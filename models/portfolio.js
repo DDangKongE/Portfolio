@@ -5,6 +5,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 var portfolioSchema = mongoose.Schema({
     index:{type:Number, default:0},
     projectname:{type:String, require:[true,'projectname is required!']},
+    projectsubtitle:{type:String, require:[true,'projectname is required!']},
     projectstart:{type:String, default:'0000.00', require:[true,'projectstart is required!']},
     projectend:{type:String, default:'현재 진행중', require:[true,'projectend is required!']},
     subject:{type:String, required:[true,'subject is required!']},
