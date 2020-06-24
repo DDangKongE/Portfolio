@@ -5,17 +5,20 @@ const fs = require('fs');
 const Skills = require('../models/skills');
 const Portfolio = require('../models/portfolio');
 const mongoose = require('mongoose');
+const util = require('../util');
+const passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 /* 메인화면 */
 /* GET manager page. */
-router.get('/', function(req, res, next) {
+router.get('/', util.isLoggedin, function(req, res, next) {
   res.render('./manager/main');
 });
 
 
 /* 자기소개 */
 /* GET ABOUT 페이지 */
-router.get('/about', function(req, res, next) {
+router.get('/about', util.isLoggedin, function(req, res, next) {
   
   fs.readdir('./public/managefile/introduce/',"utf8", function(e, data){
     var fileContant = new Array();
@@ -32,7 +35,7 @@ router.get('/about', function(req, res, next) {
 });
 
 /* POST 자기소개 이미지 수정 */
-router.post('/about/upload', function(req, res){
+router.post('/about/upload', util.isLoggedin, function(req, res){
   let samplefile = req.files.uploadFile;
 
   samplefile.mv('./public/managefile/introduce.png', function(err){
@@ -43,7 +46,7 @@ router.post('/about/upload', function(req, res){
 });
 
 /* POST 자기소개 부분 수정 */
-router.post('/about/edit/:id', function(req, res){
+router.post('/about/edit/:id', util.isLoggedin, function(req, res){
   fs.writeFile('./public/introduce/'+req.params.id+'.txt', req.body.edit, {encoding: 'utf8'}, function(err){
     if(err) return console.log(err);
   });
@@ -53,7 +56,7 @@ router.post('/about/edit/:id', function(req, res){
 
 /* 스킬 */
 /* GET Skills page. */
-router.get('/skills', function(req, res, next) {
+router.get('/skills', util.isLoggedin, function(req, res, next) {
   var back = new Array();
   var front = new Array();
   var db = new Array();
@@ -116,7 +119,7 @@ router.get('/skills', function(req, res, next) {
 });
 
 /* POST 스킬 추가 */
-router.post('/skills/add', function(req, res) {
+router.post('/skills/add', util.isLoggedin, function(req, res) {
   let samplefile = req.files.uploadFile;
   var skillname = req.body.skillname.toUpperCase();
   var imgname = req.body.skillname.toLowerCase();
@@ -134,7 +137,7 @@ router.post('/skills/add', function(req, res) {
 });
 
 /* POST 스킬 순서 변경 */
-router.post('/skills/realign', function(req, res) {
+router.post('/skills/realign', util.isLoggedin, function(req, res) {
   Skills.updateOne({ _id : req.body.firstid}, {num : req.body.second}, function(err, first){
     if(err) return json(err);
   });
@@ -147,7 +150,7 @@ router.post('/skills/realign', function(req, res) {
 });
 
 /* POST 스킬 삭제 */
-router.post('/skills/delete/:num', function(req, res){
+router.post('/skills/delete/:num', util.isLoggedin, function(req, res){
   Skills.deleteOne({num: req.params.num}, function(err){
     if(err) return res.json(err);
     res.redirect('/manager/skills');
@@ -156,7 +159,7 @@ router.post('/skills/delete/:num', function(req, res){
 
 /* 포트폴리오 */
 /* GET About portfolio page. */
-router.get('/portfolio', function(req, res) {
+router.get('/portfolio', util.isLoggedin, function(req, res) {
   Portfolio.find()
   .skip(1)
   .sort('index')
@@ -167,7 +170,7 @@ router.get('/portfolio', function(req, res) {
 
 /* 포트폴리오 */
 /* GET 포트폴리오 추가 */
-router.get('/portfolio/edit', function(req, res) {
+router.get('/portfolio/edit', util.isLoggedin, function(req, res) {
   Portfolio.findOne({index:'0'})
   .exec(function(err, data){
     res.render('./manager/portfolio_editor', {index:'0', data:data});
@@ -175,7 +178,7 @@ router.get('/portfolio/edit', function(req, res) {
 });
 
 /* GET 포트폴리오 수정 */
-router.get('/portfolio/edit/:id', function(req, res) {
+router.get('/portfolio/edit/:id', util.isLoggedin, function(req, res) {
   Portfolio.findOne({index:req.params.id})
   .exec(function(err, data){
     res.render('./manager/portfolio_editor', {index:req.params.id, data:data});
@@ -183,7 +186,7 @@ router.get('/portfolio/edit/:id', function(req, res) {
 });
 
 /* POST 포트폴리오 추가 */
-router.post('/portfolio/edit', function(req, res) {
+router.post('/portfolio/edit', util.isLoggedin, function(req, res) {
   let samplefile = req.files.uploadFile;
   var projectname = req.body.projectname.toLowerCase();
   var imgname = req.body.projectname.replace(/ /gi, "").toLowerCase();
@@ -219,7 +222,7 @@ router.post('/portfolio/edit', function(req, res) {
 });
 
 /* POST 스킬 순서 변경 */
-router.post('/portfolio/realign', function(req, res) {
+router.post('/portfolio/realign', util.isLoggedin, function(req, res) {
   Portfolio.updateOne({ _id : req.body.firstid}, {index : req.body.second}, function(err, first){
     if(err) return json(err);
   });
@@ -229,6 +232,19 @@ router.post('/portfolio/realign', function(req, res) {
   setTimeout(() => {
     res.redirect('./');
   }, 2000);
+});
+
+router.get('/login', function(req, res){
+  res.render('./manager/login');
+})
+
+router.post('/login', passport.authenticate('local', {failureRedirect: '/manager/login', failureFlash: true}),function (req, res) {
+  res.redirect('/manager');
+});
+
+router.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/manager');
 });
 
 module.exports = router;

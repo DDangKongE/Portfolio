@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <%- include('../partials/head') %>
+    </head>
+    <body>
+        <div class="wrapper">
+            <form action="/manager/login", method="post", name="frm_login", id="frm_login", style="margin:auto; margin-top:100px;">
+                <div class="form-group">
+                  <label for="InputID">Username</label>
+                  <input type="username" class="form-control" name="username" id="InputID" >
+                </div>
+                <div class="form-group">
+                  <label for="InputPassword">Password</label>
+                  <input type="password" class="form-control" name="password" id="InputPassword">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+    </body>
+</html>
