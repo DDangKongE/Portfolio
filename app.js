@@ -40,6 +40,8 @@ app.use(cookieSession({
     maxAge: 1000 * 60 * 60 
   }
 }));
+
+// Middleware setup
 app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
@@ -52,6 +54,7 @@ app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // 세션 연결
 passportConfig(); // 이 부분 추가
 
+// Router setup
 app.use('/', mainRouter);
 app.use('/manager/', manageRouter);
 

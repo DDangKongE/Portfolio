@@ -125,11 +125,9 @@ router.post('/skills/add', util.isLoggedin, function(req, res) {
   var imgname = req.body.skillname.toLowerCase();
   Skills.create({ skillname:skillname, type:req.body.type, img:imgname}, function(err, post){
     if(err) return console.log(err);
-    console.log('DB추가 완료');
   });
   samplefile.mv('./public/img/skills/'+imgname+'.png', function(err){
     if(err) return res.status(500).send(err);
-    console.log('이미지 추가 완료');
   });
   setTimeout(() => {
     res.redirect('/manager/skills');
@@ -194,7 +192,6 @@ router.post('/portfolio/edit', util.isLoggedin, function(req, res) {
   function addFile(){
     samplefile.mv('./public/managefile/portfolio/'+imgname+'.png', function(err){
       if(err) return res.status(500).send(err);
-      console.log('이미지 추가 완료');
       res.redirect('/manager/portfolio');
     });
   }
@@ -204,7 +201,6 @@ router.post('/portfolio/edit', util.isLoggedin, function(req, res) {
       projectname:projectname, projectsubtitle:req.body.projectsubtitle, projectstart:req.body.projectstart, projectend:req.body.projectend, subject:req.body.subject, uselibrary:req.body.uselibrary, projectdetail:req.body.projectdetail, img:imgname
     }, function(err, post){
       if(err) return console.log(err);
-      console.log('DB추가 완료');
       addFile();
     });
   } else {
@@ -212,7 +208,6 @@ router.post('/portfolio/edit', util.isLoggedin, function(req, res) {
       projectname:projectname, projectsubtitle:req.body.projectsubtitle, projectstart:req.body.projectstart, projectend:req.body.projectend, subject:req.body.subject, uselibrary:req.body.uselibrary, projectdetail:req.body.projectdetail, img:imgname
     }, function(err, post){
       if(err) return console.log(err);
-      console.log('DB수정 완료');
       fs.unlink('public/managefile/portfolio/'+req.body.olderimg+'.png', function(err){
         if(err) return console.log(err);
         addFile();
