@@ -1,3 +1,5 @@
 node_modules
 public\managefile
 public\assets
+public/managefile/skills/aws.png
+public\css\* linguist-vendored
