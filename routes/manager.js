@@ -126,7 +126,7 @@ router.post('/skills/add', util.isLoggedin, function(req, res) {
   Skills.create({ skillname:skillname, type:req.body.type, img:imgname}, function(err, post){
     if(err) return console.log(err);
   });
-  samplefile.mv('./public/img/skills/'+imgname+'.png', function(err){
+  samplefile.mv('./public/managefile/skills/'+imgname+'.png', function(err){
     if(err) return res.status(500).send(err);
   });
   setTimeout(() => {
