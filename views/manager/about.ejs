@@ -8,9 +8,16 @@
 
             <!-- Page Content Holder -->
             <div id="content">
-                <h1>About Editor</h1>
+              <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                  <svg class="bi bi-arrow-left-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M10.146 7.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 11l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
+                      <path fill-rule="evenodd" d="M2 11a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 11zm3.854-9.354a.5.5 0 0 1 0 .708L3.207 5l2.647 2.646a.5.5 0 1 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                      <path fill-rule="evenodd" d="M2.5 5a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                  </svg>
+              </button>
+              <h1>About Editor</h1>
                 <div style="text-align: center;">
-                    <img style="width:auto; height: auto; max-width: 400px; max-height: 400px; margin-bottom: 1rem;" src="/managefile/introduce.png">
+                    <img style="width:auto; height: auto; max-width: 400px; max-height: 400px; margin-bottom: 1rem;" src="https://hsm-portfolio.s3.ap-northeast-2.amazonaws.com/Portfolio/managefile/introduce.png">
                     <form action="./about/upload", method="post", enctype="multipart/form-data">
                         <input type="file" name="uploadFile"/><br>
                         <input class="btn btn-success" type="submit" name="upload" style="width:300; margin-top: 1rem;" value="변경"/>

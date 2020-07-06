@@ -8,6 +8,14 @@ const mongoose = require('mongoose');
 const util = require('../util');
 const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
+const AWS = require('aws-sdk');
+
+/* AWS 셋팅 */
+var s3 = new AWS.S3({
+  accessKeyId:process.env.AWS_S3_ACCESS_KEY,
+  secretAccessKey:process.env.AWS_S3_ACCESS_PW,
+  "region":"ap-northeast-2"
+});
 
 /* 메인화면 */
 /* GET manager page. */
@@ -19,49 +27,68 @@ router.get('/', util.isLoggedin, function(req, res, next) {
 /* 자기소개 */
 /* GET ABOUT 페이지 */
 router.get('/about', util.isLoggedin, function(req, res, next) {
-  
-  fs.readdir('./public/managefile/introduce/',"utf8", function(e, data){
-    var fileContant = new Array();
-    var i = 0;
-    data.forEach(function(filename){
-      
-      var fileData = fs.readFileSync('./public/managefile/introduce/'+filename, 'utf8')
-      fileContant[i] = fileData;
-      i = i + 1;
-      
-    })
-    res.render('./manager/about', {achievements : fileContant[0] , education : fileContant[1] ,  experience : fileContant[2] ,  introduce : fileContant[3] });
-  });
+  var fileContant = new Array();
+  s3.listObjects({Bucket: 'hsm-portfolio', Prefix:'Portfolio/managefile/introduce/'}).on('success', function handlePage(response){
+      function readFile(name){
+        return new Promise(resolve => {
+          s3.getObject({Bucket:'hsm-portfolio', Key:response.data.Contents[name].Key}, function(err, data) {
+            resolve(data.Body);
+          });
+        });
+    }
+
+    async function loadFile(){
+      const fileContant0 = await readFile(0);
+      const fileContant1 = await readFile(1);
+      const fileContant2 = await readFile(2);
+      const fileContant3 = await readFile(3);
+
+      res.render('./manager/about', { achievements : fileContant0 , education : fileContant1 ,  experience : fileContant2 ,  introduce : fileContant3 });
+    }
+
+    loadFile();
+  }).send();
 });
 
 /* POST 자기소개 이미지 수정 */
 router.post('/about/upload', util.isLoggedin, function(req, res){
-  let samplefile = req.files.uploadFile;
+  var param = {
+    'Bucket':'hsm-portfolio',
+    'Key': 'Portfolio/managefile/introduce.png',
+    'ACL': 'public-read',
+    'Body': req.files.uploadFile.data
+  }
 
-  samplefile.mv('./public/managefile/introduce.png', function(err){
-    if(err) return res.status(500).send(err);
-
+  s3.putObject(param, function(err, data){
+    console.log(err);
+    console.log(data);
+  
     res.redirect('/manager/about');
-  });
+
+  })
 });
 
 /* POST 자기소개 부분 수정 */
 router.post('/about/edit/:id', util.isLoggedin, function(req, res){
-  fs.writeFile('./public/introduce/'+req.params.id+'.txt', req.body.edit, {encoding: 'utf8'}, function(err){
-    if(err) return console.log(err);
-  });
-  res.redirect('/manager/about');
+  var param = {
+    'Bucket':'hsm-portfolio',
+    'Key': 'Portfolio/managefile/introduce/'+req.params.id+'.txt',
+    'ACL': 'public-read',
+    'Body': req.body.edit
+  }
+
+  s3.putObject(param, function(err, data){
+    console.log(err);
+    console.log(data);
+  
+    res.redirect('/manager/about');
+  })  
 });
 
 
 /* 스킬 */
 /* GET Skills page. */
 router.get('/skills', util.isLoggedin, function(req, res, next) {
-  var back = new Array();
-  var front = new Array();
-  var db = new Array();
-  var etc = new Array();
-
   function backfind() {
     return new Promise(function(resolve, reject) {
         Skills.find({type:'backend'})
