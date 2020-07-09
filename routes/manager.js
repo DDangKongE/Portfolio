@@ -153,12 +153,22 @@ router.post('/skills/add', util.isLoggedin, function(req, res) {
   Skills.create({ skillname:skillname, type:req.body.type, img:imgname}, function(err, post){
     if(err) return console.log(err);
   });
-  samplefile.mv('./public/managefile/skills/'+imgname+'.png', function(err){
-    if(err) return res.status(500).send(err);
-  });
-  setTimeout(() => {
-    res.redirect('/manager/skills');
-  }, 500);
+
+  var param = {
+    'Bucket':'hsm-portfolio',
+    'Key': 'Portfolio/managefile/skills/'+imgname+'.png',
+    'ACL': 'public-read',
+    'Body': samplefile.data
+  }
+
+  s3.putObject(param, function(err, data){
+    console.log(err);
+    console.log(data);
+  
+    setTimeout(() => {
+      res.redirect('/manager/skills');
+    }, 500);
+  })  
 });
 
 /* POST 스킬 순서 변경 */
@@ -170,17 +180,30 @@ router.post('/skills/realign', util.isLoggedin, function(req, res) {
     if(err) return json(err);
   });
   setTimeout(() => {
-    res.redirect('./');
+    res.redirect('/manager/skills');
   }, 2000);
 });
 
 /* POST 스킬 삭제 */
 router.post('/skills/delete/:num', util.isLoggedin, function(req, res){
+  console.log(req.body);
   Skills.deleteOne({num: req.params.num}, function(err){
     if(err) return res.json(err);
-    res.redirect('/manager/skills');
   })
-})
+  var param = {
+    'Bucket':'hsm-portfolio',
+    'Key': 'Portfolio/managefile/skills/'+req.body.imgname+'.png'
+  }
+
+  s3.deleteObject(param, function(err, data){
+    console.log(err);
+    console.log(data);
+  
+    setTimeout(() => {
+      res.redirect('/manager/skills');
+    }, 500);
+  })    
+});
 
 /* 포트폴리오 */
 /* GET About portfolio page. */

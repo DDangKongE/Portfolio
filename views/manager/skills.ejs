@@ -56,11 +56,12 @@
                     <% backend.forEach(function(skill){ %>
                         <tr>
                           <td rowspan="2" style="vertical-align: middle;">
-                            <img style="width:100px; height: 100px;" src="/managefile/skills/<%=skill.img%>.png">
+                            <img style="width:100px; height: 100px;" src="https://hsm-portfolio.s3.ap-northeast-2.amazonaws.com/Portfolio/managefile/skills/<%=skill.img%>.png">
                           </td>
                           <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
                           <td rowspan="2" style="vertical-align: middle;">
                           <form action="./skills/delete/<%=skill.num%>", method="post">
+                            <input type="hidden" name="imgname" value="<%=skill.img%>">
                             <input class="btn btn-success" type="submit"  value="삭제" />
                           </form>
                           </td>
@@ -111,7 +112,7 @@
                     <% frontend.forEach(function(skill){ %>
                         <tr>
                           <td rowspan="2" style="vertical-align: middle;">
-                            <img style="width:100px; height: 100px;" src="/managefile/skills/<%=skill.img%>.png">
+                            <img style="width:100px; height: 100px;" src="https://hsm-portfolio.s3.ap-northeast-2.amazonaws.com/Portfolio/managefile/skills/<%=skill.img%>.png">
                           </td>
                           <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
                           <td rowspan="2" style="vertical-align: middle;">
@@ -166,7 +167,7 @@
                     <% database.forEach(function(skill){ %>
                         <tr>
                           <td rowspan="2" style="vertical-align: middle;">
-                            <img style="width:100px; height: 100px;" src="/managefile/skills/<%=skill.img%>.png">
+                            <img style="width:100px; height: 100px;" src="https://hsm-portfolio.s3.ap-northeast-2.amazonaws.com/Portfolio/managefile/skills/<%=skill.img%>.png">
                           </td>
                           <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
                           <td rowspan="2" style="vertical-align: middle;">
@@ -221,7 +222,7 @@
                     <% etc.forEach(function(skill){ %>
                         <tr>
                           <td rowspan="2" style="vertical-align: middle;">
-                            <img style="width:100px; height: 100px;" src="/managefile/skills/<%=skill.img%>.png">
+                            <img style="width:100px; height: 100px;" src="https://hsm-portfolio.s3.ap-northeast-2.amazonaws.com/Portfolio/managefile/skills/<%=skill.img%>.png">
                           </td>
                           <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
                           <td rowspan="2" style="vertical-align: middle;">
