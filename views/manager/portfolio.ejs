@@ -22,9 +22,9 @@
                 <table class="table" style="text-align: center;" width="1000px">
                   <thead>
                     <tr style="text-align: center;">
-                      <th scope="col" width="300px">아이콘</th>
-                      <th scope="col" width="400px">기술</th>
-                      <th scope="col" width="150px">관리</th>
+                      <th scope="col" width="300px">프로젝트 이미지</th>
+                      <th scope="col" width="400px">프로젝트 명</th>
+                      <th scope="col" width="150px">프로젝트 관리</th>
                       <th scope="col" width="150px">순서변경</th>
                     </tr>
                   </thead>
@@ -33,7 +33,7 @@
                     <% list.forEach(function(portfolio){ %>
                         <tr>
                           <td rowspan="2" style="vertical-align: middle;">
-                            <img style="width:300px; height: 300px;" src="/managefile/portfolio/<%=portfolio.img%>.png">
+                            <img style="width:300px; height: 300px;" src="https://hsm-portfolio.s3.ap-northeast-2.amazonaws.com/Portfolio/managefile/portfolio/<%=portfolio.img%>.png">
                           </td>
                           <td rowspan="2" style="vertical-align: middle;"><%=portfolio.projectname%></td>
                           <td style="vertical-align: middle;">
@@ -56,8 +56,9 @@
                         <tr>
                             <td style="border-top: hidden;">
                                 <form action="./portfolio/delete/<%=portfolio.index%>", method="post">
-                                    <input class="btn btn-success btn-lg" type="submit"  value="삭제" />
-                                    </form>
+                                  <input type="hidden" name="imgname" value="<%=portfolio.img%>">
+                                  <input class="btn btn-success btn-lg" type="submit"  value="삭제" />
+                                </form>
                             </td>
                             <td style="border-top: hidden;">
                                 <% if (i != list.length-1) { %>

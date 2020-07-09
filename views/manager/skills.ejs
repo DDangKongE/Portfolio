@@ -24,8 +24,7 @@
                     <input style="width:300; margin-top: 1rem;" name="skillname" type="text" class="form-control" placeholder="기술명을 입력해주세요">
                     <br>
                     <select style="width:300;"  name="type" class="custom-select-md">
-                      <option selected>분류를 선택해주세요</option>
-                      <option value="backend">backend</option>
+                      <option value="backend" selected>backend</option>
                       <option value="frontend">frontend</option>
                       <option value="database">database</option>
                       <option value="etc">etc</option>
@@ -117,6 +116,7 @@
                           <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
                           <td rowspan="2" style="vertical-align: middle;">
                           <form action="./skills/delete/<%=skill.num%>", method="post">
+                            <input type="hidden" name="imgname" value="<%=skill.img%>">
                             <input class="btn btn-success" type="submit"  value="삭제" />
                           </form>
                           </td>
@@ -172,6 +172,7 @@
                           <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
                           <td rowspan="2" style="vertical-align: middle;">
                           <form action="./skills/delete/<%=skill.num%>", method="post">
+                            <input type="hidden" name="imgname" value="<%=skill.img%>">
                             <input class="btn btn-success" type="submit"  value="삭제" />
                           </form>
                           </td>
@@ -227,6 +228,7 @@
                           <td rowspan="2" style="vertical-align: middle;"><%=skill.skillname%></td>
                           <td rowspan="2" style="vertical-align: middle;">
                           <form action="./skills/delete/<%=skill.num%>", method="post">
+                            <input type="hidden" name="imgname" value="<%=skill.img%>">
                             <input class="btn btn-success" type="submit"  value="삭제" />
                           </form>
                           </td>

@@ -240,10 +240,21 @@ router.post('/portfolio/edit', util.isLoggedin, function(req, res) {
   var imgname = req.body.projectname.replace(/ /gi, "").toLowerCase();
 
   function addFile(){
-    samplefile.mv('./public/managefile/portfolio/'+imgname+'.png', function(err){
-      if(err) return res.status(500).send(err);
-      res.redirect('/manager/portfolio');
-    });
+    var param = {
+      'Bucket':'hsm-portfolio',
+      'Key': 'Portfolio/managefile/portfolio/'+imgname+'.png',
+      'ACL': 'public-read',
+      'Body': samplefile.data
+    }
+    
+    s3.putObject(param, function(err, data){
+      console.log(err);
+      console.log(data);
+      
+      setTimeout(() => {
+        res.redirect('/manager/portfolio');
+      }, 500);
+    })  
   }
 
   if(req.body.index == 0){
@@ -258,15 +269,14 @@ router.post('/portfolio/edit', util.isLoggedin, function(req, res) {
       projectname:projectname, projectsubtitle:req.body.projectsubtitle, projectstart:req.body.projectstart, projectend:req.body.projectend, subject:req.body.subject, uselibrary:req.body.uselibrary, projectdetail:req.body.projectdetail, img:imgname
     }, function(err, post){
       if(err) return console.log(err);
-      fs.unlink('public/managefile/portfolio/'+req.body.olderimg+'.png', function(err){
-        if(err) return console.log(err);
+      s3.deleteObject({'Bucket':'hsm-portfolio','Key': 'Portfolio/managefile/portfolio/'+req.body.olderimg+'.png',}, function(err, data){
         addFile();
-      })
+      });
     });
   };
 });
 
-/* POST 스킬 순서 변경 */
+/* POST 포트폴리오 순서 변경 */
 router.post('/portfolio/realign', util.isLoggedin, function(req, res) {
   Portfolio.updateOne({ _id : req.body.firstid}, {index : req.body.second}, function(err, first){
     if(err) return json(err);
@@ -277,6 +287,27 @@ router.post('/portfolio/realign', util.isLoggedin, function(req, res) {
   setTimeout(() => {
     res.redirect('./');
   }, 2000);
+});
+
+/* POST 포트폴리오 삭제 */
+router.post('/portfolio/delete/:num', util.isLoggedin, function(req, res){
+  console.log(req.body);
+  Portfolio.deleteOne({index: req.params.num}, function(err){
+    if(err) return res.json(err);
+  })
+  var param = {
+    'Bucket':'hsm-portfolio',
+    'Key': 'Portfolio/managefile/portfolio/'+req.body.imgname+'.png'
+  }
+
+  s3.deleteObject(param, function(err, data){
+    console.log(err);
+    console.log(data);
+  
+    setTimeout(() => {
+      res.redirect('/manager/portfolio');
+    }, 500);
+  })    
 });
 
 router.get('/login', function(req, res){
