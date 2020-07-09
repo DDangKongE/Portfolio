@@ -36,7 +36,7 @@ app.set('view engine', 'ejs');
 
 app.use(cookieSession({
   keys: ['node_han'],
-  maxAge: 1000 * 60 * 60
+  maxAge: 1000 * 60 * 10
 }));
 
 // Middleware setup
