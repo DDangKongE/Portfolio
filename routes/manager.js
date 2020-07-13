@@ -63,7 +63,7 @@ router.post('/about/upload', util.isLoggedin, function(req, res){
     console.log(err);
     console.log(data);
   
-    res.redirect('/manager/about');
+    res.redirect('/portfolio/manager/about');
 
   })
 });
@@ -81,7 +81,7 @@ router.post('/about/edit/:id', util.isLoggedin, function(req, res){
     console.log(err);
     console.log(data);
   
-    res.redirect('/manager/about');
+    res.redirect('/portfolio/manager/about');
   })  
 });
 
@@ -166,7 +166,7 @@ router.post('/skills/add', util.isLoggedin, function(req, res) {
     console.log(data);
   
     setTimeout(() => {
-      res.redirect('/manager/skills');
+      res.redirect('/portfolio/manager/skills');
     }, 500);
   })  
 });
@@ -180,7 +180,7 @@ router.post('/skills/realign', util.isLoggedin, function(req, res) {
     if(err) return json(err);
   });
   setTimeout(() => {
-    res.redirect('/manager/skills');
+    res.redirect('/portfolio/manager/skills');
   }, 2000);
 });
 
@@ -200,7 +200,7 @@ router.post('/skills/delete/:num', util.isLoggedin, function(req, res){
     console.log(data);
   
     setTimeout(() => {
-      res.redirect('/manager/skills');
+      res.redirect('/portfolio/manager/skills');
     }, 500);
   })    
 });
@@ -252,8 +252,8 @@ router.post('/portfolio/edit', util.isLoggedin, function(req, res) {
       console.log(data);
       
       setTimeout(() => {
-        res.redirect('/manager/portfolio');
-      }, 500);
+        res.redirect('/portfolio/manager/portfolio');
+      }, 1000);
     })  
   }
 
@@ -285,7 +285,7 @@ router.post('/portfolio/realign', util.isLoggedin, function(req, res) {
     if(err) return json(err);
   });
   setTimeout(() => {
-    res.redirect('./');
+    res.redirect('/portfolio/manager/portfolio');
   }, 2000);
 });
 
@@ -305,7 +305,7 @@ router.post('/portfolio/delete/:num', util.isLoggedin, function(req, res){
     console.log(data);
   
     setTimeout(() => {
-      res.redirect('/manager/portfolio');
+      res.redirect('/portfolio/manager/portfolio');
     }, 500);
   })    
 });
@@ -314,13 +314,13 @@ router.get('/login', function(req, res){
   res.render('./manager/login');
 })
 
-router.post('/login', passport.authenticate('local', {failureRedirect: '/manager/login', failureFlash: true}),function (req, res) {
-  res.redirect('/manager');
+router.post('/login', passport.authenticate('local', {failureRedirect: '/portfolio/manager/login', failureFlash: true}),function (req, res) {
+  res.redirect('/portfolio/manager');
 });
 
 router.get('/logout', function (req, res) {
   req.logout();
-  res.redirect('/manager');
+  res.redirect('/portfolio/manager');
 });
 
 module.exports = router;

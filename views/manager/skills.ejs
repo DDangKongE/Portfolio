@@ -18,7 +18,7 @@
                 <h1>Skills Editor</h1>
                 <br>
                 <!-- 스킬 추가하는 영역 -->
-                <form action="/manager/skills/add", method="post", enctype="multipart/form-data">
+                <form action="/portfolio/manager/skills/add", method="post", enctype="multipart/form-data">
                   <div>
                     <h1>Skill Add</h1>
                     <input style="width:300; margin-top: 1rem;" name="skillname" type="text" class="form-control" placeholder="기술명을 입력해주세요">
@@ -66,7 +66,7 @@
                           </td>
                           <td>
                             <% if (i != 0) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=backend[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=backend[i]._id%>">
                                 <input type="hidden" name="second" value="<%=backend[i-1].num%>">
@@ -79,7 +79,7 @@
                         <tr>
                           <td style="border-top: hidden;">
                             <% if (i != backend.length-1) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=backend[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=backend[i]._id%>">
                                 <input type="hidden" name="second" value="<%=backend[i+1].num%>">
@@ -122,7 +122,7 @@
                           </td>
                           <td>
                             <% if (i != 0) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=frontend[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=frontend[i]._id%>">
                                 <input type="hidden" name="second" value="<%=frontend[i-1].num%>">
@@ -135,7 +135,7 @@
                         <tr>
                           <td style="border-top: hidden;">
                             <% if (i != frontend.length-1) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=frontend[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=frontend[i]._id%>">
                                 <input type="hidden" name="second" value="<%=frontend[i+1].num%>">
@@ -178,7 +178,7 @@
                           </td>
                           <td>
                             <% if (i != 0) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=database[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=database[i]._id%>">
                                 <input type="hidden" name="second" value="<%=database[i-1].num%>">
@@ -191,7 +191,7 @@
                         <tr>
                           <td style="border-top: hidden;">
                             <% if (i != database.length-1) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=database[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=database[i]._id%>">
                                 <input type="hidden" name="second" value="<%=database[i+1].num%>">
@@ -234,7 +234,7 @@
                           </td>
                           <td>
                             <% if (i != 0) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=etc[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=etc[i]._id%>">
                                 <input type="hidden" name="second" value="<%=etc[i-1].num%>">
@@ -247,7 +247,7 @@
                         <tr>
                           <td style="border-top: hidden;">
                             <% if (i != etc.length-1) { %>
-                              <form action="/manager/skills/realign" method="post">
+                              <form action="/portfolio/manager/skills/realign" method="post">
                                 <input type="hidden" name="first" value="<%=etc[i].num%>">
                                 <input type="hidden" name="firstid" value="<%=etc[i]._id%>">
                                 <input type="hidden" name="second" value="<%=etc[i+1].num%>">

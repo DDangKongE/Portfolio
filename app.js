@@ -10,6 +10,7 @@ const passportConfig = require('./config/passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 const cookieSession = require('cookie-session');
+const expressDefend = require('express-defend');
 
 const mainRouter = require('./routes/main');
 const manageRouter = require('./routes/manager');
@@ -52,9 +53,20 @@ app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // 세션 연결
 passportConfig(); // 이 부분 추가
 
+// expressDefend
+app.use(expressDefend.protect({ 
+  maxAttempts: 5,                   // (default: 5) number of attempts until "onMaxAttemptsReached" gets triggered
+  dropSuspiciousRequest: true,      // respond 403 Forbidden when max attempts count is reached
+  consoleLogging: true,             // (default: true) enable console logging
+  logFile: 'suspicious.log',        // if specified, express-defend will log it's output here
+  onMaxAttemptsReached: function(ipAddress, url){
+      console.log('IP address ' + ipAddress + ' is considered to be malicious, URL: ' + url);
+  } 
+}));
+
 // Router setup
-app.use('/', mainRouter);
-app.use('/manager/', manageRouter);
+app.use('/portfolio', mainRouter);
+app.use('/portfolio/manager/', manageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

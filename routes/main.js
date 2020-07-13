@@ -112,7 +112,7 @@ router.get('/', function(req, res, next) {
   }).send();
 });
 
-router.get('/portpolioDetail',function(req, res){
+router.get('/portfolioDetail',function(req, res){
   Portfolio.findOne({index:req.query.index})
   .exec(function(err, data){
     res.send({result:data});

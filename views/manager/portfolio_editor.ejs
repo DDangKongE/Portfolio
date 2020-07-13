@@ -17,7 +17,7 @@
                 </button>
                 <h1>Portfolio Editor</h1>
                 <% if(index==0){ %>
-                <form action="/manager/portfolio/edit" method="post" enctype="multipart/form-data">
+                <form action="/portfolio/manager/portfolio/edit" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <p class="font-weight-bolder">프로젝트 이름</p>
                         <input name="projectname" type="text" class="form-control">
@@ -62,7 +62,7 @@
                     </div>
                 </form>
                 <% } else { %>
-                    <form action="/manager/portfolio/edit" method="post" enctype="multipart/form-data">
+                    <form action="/portfolio/manager/portfolio/edit" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <p class="font-weight-bolder">프로젝트 이름</p>
                             <input name="projectname" type="text" class="form-control" value="<%=data.projectname%>">

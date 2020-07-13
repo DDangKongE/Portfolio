@@ -43,7 +43,7 @@
                           </td>
                           <td id="ig" style="vertical-align: middle;">
                             <% if (i != 0) { %>
-                              <form action="/manager/portfolio/realign" method="post">
+                              <form action="/portfolio/manager/portfolio/realign" method="post">
                                 <input type="hidden" name="first" value="<%=list[i].index%>">
                                 <input type="hidden" name="firstid" value="<%=list[i]._id%>">
                                 <input type="hidden" name="second" value="<%=list[i-1].index%>">
@@ -62,7 +62,7 @@
                             </td>
                             <td style="border-top: hidden;">
                                 <% if (i != list.length-1) { %>
-                                <form action="/manager/portfolio/realign" method="post">
+                                <form action="/portfolio/manager/portfolio/realign" method="post">
                                     <input type="hidden" name="first" value="<%=list[i].index%>">
                                     <input type="hidden" name="firstid" value="<%=list[i]._id%>">
                                     <input type="hidden" name="second" value="<%=list[i+1].index%>">

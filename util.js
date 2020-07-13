@@ -6,7 +6,7 @@ util.isLoggedin = function(req, res, next){
     } 
     else {
       req.flash('errors', {login:'Please login first'});
-      res.redirect('/manager/login');
+      res.redirect('/portfolio/manager/login');
     }
   }
 
