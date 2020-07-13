@@ -12,6 +12,7 @@ const flash = require('connect-flash');
 const cookieSession = require('cookie-session');
 const expressDefend = require('express-defend');
 
+const rootRouter = require('./routes/root');
 const mainRouter = require('./routes/main');
 const manageRouter = require('./routes/manager');
 
@@ -65,6 +66,7 @@ app.use(expressDefend.protect({
 }));
 
 // Router setup
+app.use('/', rootRouter);
 app.use('/portfolio', mainRouter);
 app.use('/portfolio/manager/', manageRouter);
 
