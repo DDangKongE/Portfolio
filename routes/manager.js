@@ -20,7 +20,7 @@ var s3 = new AWS.S3({
 /* 메인화면 */
 /* GET manager page. */
 router.get('/', util.isLoggedin, function(req, res, next) {
-  res.render('./manager/main');
+  res.render('manager/main');
 });
 
 
@@ -43,7 +43,7 @@ router.get('/about', util.isLoggedin, function(req, res, next) {
       const fileContant2 = await readFile(2);
       const fileContant3 = await readFile(3);
 
-      res.render('./manager/about', { achievements : fileContant0 , education : fileContant1 ,  experience : fileContant2 ,  introduce : fileContant3 });
+      res.render('manager/about', { achievements : fileContant0 , education : fileContant1 ,  experience : fileContant2 ,  introduce : fileContant3 });
     }
 
     loadFile();
@@ -139,7 +139,7 @@ router.get('/skills', util.isLoggedin, function(req, res, next) {
     var db = await dbfind();
     var etc = await etcfind();
 
-    res.render('./manager/skills', {backend:back, frontend:front, database:db, etc:etc});
+    res.render('manager/skills', {backend:back, frontend:front, database:db, etc:etc});
   }
 
   loadList();
@@ -212,7 +212,7 @@ router.get('/portfolio', util.isLoggedin, function(req, res) {
   .skip(1)
   .sort('index')
   .exec(function(err,data){
-    res.render('./manager/portfolio', {list:data});
+    res.render('manager/portfolio', {list:data});
   });
 });
 
@@ -221,7 +221,7 @@ router.get('/portfolio', util.isLoggedin, function(req, res) {
 router.get('/portfolio/edit', util.isLoggedin, function(req, res) {
   Portfolio.findOne({index:'0'})
   .exec(function(err, data){
-    res.render('./manager/portfolio_editor', {index:'0', data:data});
+    res.render('manager/portfolio_editor', {index:'0', data:data});
   })
 });
 
@@ -229,7 +229,7 @@ router.get('/portfolio/edit', util.isLoggedin, function(req, res) {
 router.get('/portfolio/edit/:id', util.isLoggedin, function(req, res) {
   Portfolio.findOne({index:req.params.id})
   .exec(function(err, data){
-    res.render('./manager/portfolio_editor', {index:req.params.id, data:data});
+    res.render('manager/portfolio_editor', {index:req.params.id, data:data});
   })
 });
 
@@ -311,7 +311,7 @@ router.post('/portfolio/delete/:num', util.isLoggedin, function(req, res){
 });
 
 router.get('/login', function(req, res){
-  res.render('./manager/login');
+  res.render('manager/login');
 })
 
 router.post('/login', passport.authenticate('local', {failureRedirect: '/portfolio/manager/login', failureFlash: true}),function (req, res) {

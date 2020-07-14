@@ -101,7 +101,7 @@ router.get('/', function(req, res, next) {
       var etc = await etcfind();
       var porfol = await portfoliofind();
 
-      res.render('./home/main', {
+      res.render('home/main', {
         achievements : fileContant0 , education : fileContant1 ,  experience : fileContant2 ,  introduce : fileContant3 ,
         backend:back, frontend:front, database:db, etc:etc,
         portfolio:porfol
