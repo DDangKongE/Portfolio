@@ -43,7 +43,7 @@ app.use(cookieSession({
 
 // Middleware setup
 app.use(flash());
-app.use(logger('dev'));
+app.use(logger(':method :url :status :res[content-length] - :response-time ms // :date[iso]'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
