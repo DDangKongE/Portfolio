@@ -23,14 +23,15 @@
 
 ## 구현 이미지
 
+- 화면 최상단  
 ![Portfolio_main](https://user-images.githubusercontent.com/60078920/99215957-c8040e80-2817-11eb-9c7e-e7fbe52257c3.png)
 
-- 화면 최상단
-
+- 포트폴리오에서 프로젝트 클릭 시 상세 내용을 확인 가능
 ![Portfolio_detail](https://user-images.githubusercontent.com/60078920/99216069-11ecf480-2818-11eb-8aad-e046aff04314.png)
 
-- 포트폴리오에서 프로젝트 클릭 시 상세 내용을 확인 가능
-
-![Manager_Portfolio](https://user-images.githubusercontent.com/60078920/99216146-419bfc80-2818-11eb-81c8-e921e5c282da.png)
 
 - 관리 페이지에서 프로젝트와 스킬, 자기소개 항목을 등록/수정/삭제 할 수 있다.
+![Manager_Portfolio](https://user-images.githubusercontent.com/60078920/99216146-419bfc80-2818-11eb-81c8-e921e5c282da.png)
+
+
+
